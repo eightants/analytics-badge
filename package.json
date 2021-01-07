@@ -1,0 +1,32 @@
+{
+  "name": "analytics-badge",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "prettier-format": "prettier --write .",
+    "lint": "eslint ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier-format && npm run lint"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eightants/analytics-badge.git"
+  },
+  "author": "Anthony Teo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eightants/analytics-badge/issues"
+  },
+  "homepage": "https://github.com/eightants/analytics-badge#readme",
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "googleapis": "^66.0.0",
+    "husky": "^4.3.7"
+  }
+}
