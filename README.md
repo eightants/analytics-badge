@@ -1,6 +1,8 @@
 # Google Analytics Badges
 
-Node.js wrapper serverless service to generate Shields IO-style badges for Google Analytics. Authenticates with the Reporting API using JWT tokens and uses dynamic shields to generate badges for traffic stats. Fully customizable. Works with Universal Analytics properties, does not work with GA4 properties. 
+![Pageviews](https://kubo.vercel.app/api/analytics?viewId=235430310&metric=ga:pageviews&title=pageviews&style=flat&color=blue)
+
+Node.js wrapper serverless service to generate Shields IO-style badges for Google Analytics. Authenticates with the Reporting API using JWT tokens and uses shields to generate badges for traffic stats. Fully customizable. Works with Universal Analytics but not GA4 properties.
 
 ## Quickstart
 
