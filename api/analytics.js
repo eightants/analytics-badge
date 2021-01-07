@@ -3,7 +3,7 @@ const abbreviate = require("../abbreviate.js");
 
 const key = {
   private_key: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
-  client_email: process.env.CLIENT_EMAIL,
+  client_email: process.env.CLIENT_EMAIL
 };
 
 module.exports = async (req, res) => {
@@ -13,12 +13,12 @@ module.exports = async (req, res) => {
       metric = "ga:users",
       startDate = "7daysAgo",
       endDate = "today",
-      period = "%2Fweek",
+      unit = "/week",
       title = "users",
       color = "green",
       style = "plastic",
-      si = "true",
-    },
+      si = "true"
+    }
   } = req;
 
   return fetchReport(key, viewId, metric, startDate, endDate)
@@ -26,9 +26,9 @@ module.exports = async (req, res) => {
       const value = data.reports[0].data.totals[0].values[0];
       return res.redirect(
         302,
-        `https://img.shields.io/badge/${title}-${
+        `https://img.shields.io/badge/${encodeURIComponent(title)}-${
           si == "true" ? abbreviate(value) : value
-        }${period}-${color}.svg?style=${style}`
+        }${encodeURIComponent(unit)}-${color}.svg?style=${style}`
       );
     })
     .catch((err) => {

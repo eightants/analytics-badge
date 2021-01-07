@@ -5,7 +5,7 @@ const SI_SYMBOL = ["", "k", "M", "B", "T", "P", "E"];
 module.exports = (number) => {
   const tier = (Math.log10(number) / 3) | 0;
 
-  if (tier == 0) return number;
+  if (tier == 0) return Number(number).toFixed(2);
 
   const suffix = SI_SYMBOL[tier];
   const scale = Math.pow(10, tier * 3);
