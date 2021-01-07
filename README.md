@@ -1,6 +1,6 @@
 # Google Analytics Badges
 
-Node.js wrapper serverless service to generate Shields IO-style badges for Google Analytics. Authenticates with the Reporting API using JWT tokens and uses dynamic shields to generate badges for traffic stats. Fully customizable.
+Node.js wrapper serverless service to generate Shields IO-style badges for Google Analytics. Authenticates with the Reporting API using JWT tokens and uses dynamic shields to generate badges for traffic stats. Fully customizable. Works with Universal Analytics properties, does not work with GA4 properties. 
 
 ## Quickstart
 
@@ -54,6 +54,8 @@ Adapt the code in `integrate.js` into your existing server code. Full documentat
 
 Since it requires private keys, the best way is to deploy your own instance of this service. We will be using Vercel for free serverless deployments.
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Feightants%2Fanalytics-badge&env=CLIENT_EMAIL,PRIVATE_KEY&envDescription=These%20values%20are%20defined%20in%20the%20JSON%20file%20downloaded%20from%20your%20service%20account&envLink=https%3A%2F%2Fgithub.com%2Feightants%2Fanalytics-badge&project-name=analytics&repo-name=analytics-badge)
+
 _Automate steps 1-5 with the button above_
 
 1. Fork the https://github.com/eightants/analytics-badge project to your GitHub account.
@@ -68,7 +70,7 @@ _Automate steps 1-5 with the button above_
 Visit your Google Analytics dashboard and obtain the `viewId` for your project of interest from `Admin > View > View Settings > View ID`. You can now generate shields.io badges for any of your Analytics projects with this endpoint.
 
 ```
-https://<deploy-id>.vercel.app/api/analytics?viewId=<VIEWID>&metric=<METRIC>&startDate=<STARTDATE>&endDate=<ENDDATE>&title=<TITLE>&period=<PERIOD>&color=<COLOR>&style=<STYLE>&si=<SI>
+https://<deploy-id>.vercel.app/api/analytics?viewId=<VIEWID>&metric=<METRIC>&startDate=<STARTDATE>&endDate=<ENDDATE>&title=<TITLE>&unit=<UNIT>&color=<COLOR>&style=<STYLE>&si=<SI>
 ```
 
 **Query Parameters**
@@ -79,12 +81,10 @@ https://<deploy-id>.vercel.app/api/analytics?viewId=<VIEWID>&metric=<METRIC>&sta
 | startDate | Start date for fetching Analytics data. Requests can specify a start date formatted as `YYYY-MM-DD`, or as a relative date (e.g., `today`, `yesterday`, or `NdaysAgo` where `N` is a positive integer). Default: `7daysAgo`|
 | endDate | End date for fetching Analytics data. Requests can specify a start date formatted as `YYYY-MM-DD`, or as a relative date (e.g., `today`, `yesterday`, or `NdaysAgo` where `N` is a positive integer). Default: `today`|
 | title | Title for Shields.io badge. Default: `users` |
-| period | Duration of metric displayed on badge, e.g. 20k/week, 300/month. Special characters need to be URL encoded. Default: `%2Fweek` |
+| unit | Unit of metric displayed on badge, e.g. 20k/week, 300/month. Special characters need to be URL encoded. Default: `%2Fweek` |
 | color | Color of shield. Default: `green` |
 | style | Shield style according to Shields.io documentation. Default: `plastic` |
 | si | Whether to use SI abbreviations for numbers, e.g. 20k, 4M, 8B. Default: `true` |
-
----
 
 ## Examples
 
@@ -100,10 +100,18 @@ In HTML: `<img src="https://<deploy-id>.vercel.app/api/analytics?viewId=21111368
 
 ### Pageviews per month
 
-`https://<deploy-id>.vercel.app/api/analytics?viewId=211113681&metric=ga:pageviews&startDate=30daysAgo&title=pageviews&period=%2Fmonth`
+`https://<deploy-id>.vercel.app/api/analytics?viewId=211113681&metric=ga:pageviews&startDate=30daysAgo&title=pageviews&unit=%2Fmonth`
 
-![Views Shield](https://kubo.vercel.app/api/analytics?viewId=211113681&metric=ga:pageviews&startDate=30daysAgo&title=pageviews&period=%2Fmonth)
+![Views Shield](https://kubo.vercel.app/api/analytics?viewId=211113681&metric=ga:pageviews&startDate=30daysAgo&title=pageviews&unit=%2Fmonth)
+
+### Bounce Rate over the past day with badge styles
+
+`https://<deploy-id>.vercel.app/api/analytics?viewId=211113681&metric=ga:bounceRate&startDate=yesterday&title=Bounce%20Rate&unit=%25&style=for-the-badge&color=blue`
+
+![Shield](https://kubo.vercel.app/api/analytics?viewId=211113681&metric=ga:bounceRate&startDate=yesterday&title=Bounce%20Rate&unit=%25&style=for-the-badge&color=blue)
 
 ## Contribute
 
 Feel free to contribute corrections in this guide or provide documentation on how to set up this project on other serverless platforms such as GCP or AWS Lambda.
+
+![Analytics](https://ga-beacon.appspot.com/UA-132344171-6/github.com/Naereen/badges/README.md?pixel)
