@@ -3,7 +3,7 @@ const abbreviate = require("../abbreviate.js");
 
 const key = {
   private_key: process.env.PRIVATE_KEY.replace(/\\n/g, "\n"),
-  client_email: process.env.CLIENT_EMAIL
+  client_email: process.env.CLIENT_EMAIL,
 };
 
 module.exports = async (req, res) => {
@@ -17,8 +17,8 @@ module.exports = async (req, res) => {
       title = "users",
       color = "green",
       style = "plastic",
-      si = "true"
-    }
+      si = "true",
+    },
   } = req;
 
   return fetchReport(key, viewId, metric, startDate, endDate)
